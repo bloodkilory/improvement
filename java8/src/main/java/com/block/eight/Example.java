@@ -1,12 +1,11 @@
 package com.block.eight;
 
+import java.text.ParseException;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
 
 /**
  * Created by bloodkilory on 2016/3/30.
@@ -28,6 +27,16 @@ public class Example {
         for(int i = 0; i < 20; i++) {
             people.add(new People(i, "name_" + i, "job_" + i));
         }
+    }
+
+    public void initPeople2() {
+        people = new ArrayList<>();
+        People p1 = new People(1, "one", "j1");
+        People p2 = new People(2, "two", "j2");
+        People p3 = new People(3, "three", "j3");
+        people.add(p1);
+        people.add(p2);
+        people.add(p3);
     }
 
     /**
@@ -77,22 +86,12 @@ public class Example {
         }
     }
 
-    public static void main(String[] args) {
-        // ony way to generate infinite seq
-        DoubleStream doubles = DoubleStream.iterate(1, d -> d + 3D);
-        // the other way to generate infinite seq
-        Stream<Double> numStream = Stream.generate(new NumSupplier());
-        List<Double> list = numStream.skip(10).limit(10000000).collect(Collectors.toList());
-        Double[] pop = list.toArray(new Double[list.size()]);
-        System.out.println(pop.length + ": " + pop[200]);
-        long m1 = System.currentTimeMillis();
-        System.out.println("Fork/Join: " + varianceImperative(pop));
-        long m2 = System.currentTimeMillis();
-        System.out.println("Fork/Join：" + (m2-m1));
-        long n1 = System.currentTimeMillis();
-        System.out.println("Imper: " + varianceForkJoin(pop));
-        long n2 = System.currentTimeMillis();
-        System.out.println("Imper：" + (n2-n1));
+    public static void main(String[] args) throws ParseException {
+
+        List<String> list = Arrays.asList("a", "b", "c");
+//        for(int i =0;i<list.size();i++) {
+            list.remove(0);
+//        }
     }
 
     /**
